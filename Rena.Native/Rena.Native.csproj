@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>Rena.Native</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Nuget">
+    <PackageId>Rena.Native</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>GasInfinity</Authors>
+    <Description>Modern .NET unsafe utilities, extensions and unmanaged types for interop and fast code execution.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>logo-simple.png</PackageIcon>
+    <RepositoryUrl>https://github.com/GasInfinity/Rena.Native</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup Label="Extra files">
+    <None Include="../README.md" Pack="true" PackagePath="/" />
+    <None Include="../assets/logo-simple.png" Pack="true" PackagePath="/" />
+  </ItemGroup>
+</Project>
