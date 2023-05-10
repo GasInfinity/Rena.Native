@@ -9,15 +9,16 @@ public readonly struct PooledUnmanagedStructArray<T>
     where T : unmanaged
 {
     private readonly byte[] data;
-    private readonly int length;
+
+    public int Length { get; }
 
     public Span<T> Data
-        => MemoryMarshal.CreateSpan(ref Unsafe.As<byte, T>(ref data[0]), length);
+        => MemoryMarshal.CreateSpan(ref Unsafe.As<byte, T>(ref data[0]), Length);
 
     public PooledUnmanagedStructArray(ArrayPool<byte> pool, int length)
     {
         Debug.Assert(length > 0);
-        this.length = length;
+        this.Length = length;
 
         var byteLength = checked(length * Unsafe.SizeOf<T>());
         data = pool.Rent(byteLength);
