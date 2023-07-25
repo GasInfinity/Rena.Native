@@ -89,7 +89,7 @@ public unsafe readonly struct UnmanagedSpan<T> : ISpanFormattable
         private T* current;
         private nuint remaining;
 
-        public ref T Current
+        public readonly ref T Current
             => ref current[0];
 
         public ElementEnumerator(UnmanagedSpan<T> span)
@@ -114,7 +114,7 @@ public unsafe readonly struct UnmanagedSpan<T> : ISpanFormattable
         private nuint remaining;
         private bool isFinalBlock;
 
-        public Span<T> Current
+        public readonly Span<T> Current
             => MemoryMarshal.CreateSpan(ref current[0], (int)nuint.Min(remaining, int.MaxValue));
 
         public SpanEnumerator(UnmanagedSpan<T> span)
