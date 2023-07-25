@@ -9,7 +9,7 @@
 
   <PropertyGroup Label="Nuget">
     <PackageId>Rena.Native</PackageId>
-    <Version>1.1.1</Version>
+    <Version>1.2.0</Version>
     <Authors>GasInfinity</Authors>
     <Description>Modern .NET unsafe utilities, extensions and unmanaged types for interop and fast code execution.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
