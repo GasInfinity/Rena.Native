@@ -15,12 +15,12 @@ public static class SpanExtensions // TODO: Add bound checks with Debug.Assert
         => MemoryMarshal.CreateReadOnlySpan(ref Unsafe.Add(ref MemoryMarshal.GetReference(span), offset), length);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Span<T> SliceUnsafe<T>(this Span<T> span, int length)
-        => MemoryMarshal.CreateSpan(ref MemoryMarshal.GetReference(span), length);
+    public static Span<T> SliceUnsafe<T>(this Span<T> span, int offset)
+        => MemoryMarshal.CreateSpan(ref Unsafe.Add(ref MemoryMarshal.GetReference(span), offset), span.Length - offset);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ReadOnlySpan<T> SliceUnsafe<T>(this ReadOnlySpan<T> span, int length)
-        => MemoryMarshal.CreateReadOnlySpan(ref MemoryMarshal.GetReference(span), length);
+    public static ReadOnlySpan<T> SliceUnsafe<T>(this ReadOnlySpan<T> span, int offset)
+        => MemoryMarshal.CreateReadOnlySpan(ref Unsafe.Add(ref MemoryMarshal.GetReference(span), offset), span.Length - offset);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Span<T> SliceUnsafe<T>(this Span<T> span, Range range)
