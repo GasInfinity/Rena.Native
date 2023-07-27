@@ -76,10 +76,10 @@ public unsafe readonly struct UnmanagedSpan<T> : ISpanFormattable
         => new(this);
 
     public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
-        => destination.TryWrite($"UnmanagedSpan<{typeof(T).Name}>[0x{(nuint)Pointer:X}][{Length}]", out charsWritten);
+        => destination.TryWrite($"UnmanagedSpan<{typeof(T).FullName}>[0x{(nuint)Pointer:X}][{Length}]", out charsWritten);
 
     public string ToString(string? format, IFormatProvider? formatProvider)
-        => $"UnmanagedSpan<{typeof(T).Name}>[0x{(nuint)Pointer:X}][{Length}]";
+        => $"UnmanagedSpan<{typeof(T).FullName}>[0x{(nuint)Pointer:X}][{Length}]";
 
     public override string ToString()
         => ToString(null, null);

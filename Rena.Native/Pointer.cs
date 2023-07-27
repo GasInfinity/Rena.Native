@@ -7,6 +7,15 @@ public unsafe readonly struct Pointer<T> : IEquatable<Pointer<T>>, ISpanFormatta
 {
     public readonly T* Ptr;
 
+    public bool IsNull
+        => Ptr == null;
+
+    public T Value
+        => Ptr[0];
+
+    public ref T Managed
+        => ref Ptr[0];
+
     public Pointer(T* ptr)
         => Ptr = ptr;
 
