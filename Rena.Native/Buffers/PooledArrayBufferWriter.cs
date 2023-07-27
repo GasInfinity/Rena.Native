@@ -6,6 +6,8 @@ namespace Rena.Native.Buffers;
 
 public sealed class PooledArrayBufferWriter<T> : IBufferWriter<T>, IDisposable
 {
+    const int DefaultInitialSize = 64;
+
     private readonly ArrayPool<T> pool;
     private T[] buffer = Array.Empty<T>();
     private int index;
@@ -87,11 +89,14 @@ public sealed class PooledArrayBufferWriter<T> : IBufferWriter<T>, IDisposable
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void GrowIfNeeded(int sizeHint)
     {
+        if (sizeHint == 0)
+            sizeHint = 1;
+
         if (sizeHint <= FreeCapacity)
             return;
 
         T[] lastBuffer = this.buffer;
-        int newSize = checked(int.Max(lastBuffer.Length, sizeHint) * 2);
+        int newSize = checked(int.Max(int.Max(lastBuffer.Length, DefaultInitialSize), sizeHint) * 2);
         T[] newBuffer = this.pool.Rent(newSize);
         
         lastBuffer.CopyTo(newBuffer.AsSpan());
