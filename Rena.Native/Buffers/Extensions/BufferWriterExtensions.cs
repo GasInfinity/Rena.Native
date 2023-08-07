@@ -119,12 +119,7 @@ public static class BufferWriterExtensions
     /// <param name="littleEndian">A boolean flag indicating whether to use little-endian byte order (true) or big-endian byte order (false).</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void WriteSingle(this IBufferWriter<byte> writer, float value, [ConstantExpected] bool littleEndian)
-    {
-        if (littleEndian ^ BitConverter.IsLittleEndian)
-            value = BinaryPrimitives.ReverseEndianness(BitConverter.SingleToUInt32Bits(value));
-
-        writer.WriteRaw(value);
-    }
+        => WriteUInt32(writer, BitConverter.SingleToUInt32Bits(value), littleEndian);
 
     /// <summary>
     /// Writes a 64-bit floating-point value (double) to the buffer with the specified endianness.
@@ -134,10 +129,5 @@ public static class BufferWriterExtensions
     /// <param name="littleEndian">A boolean flag indicating whether to use little-endian byte order (true) or big-endian byte order (false).</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void WriteDouble(this IBufferWriter<byte> writer, double value, [ConstantExpected] bool littleEndian)
-    {
-        if (littleEndian ^ BitConverter.IsLittleEndian)
-            value = BinaryPrimitives.ReverseEndianness(BitConverter.DoubleToUInt64Bits(value));
-
-        writer.WriteRaw(value);
-    }
+        => WriteUInt64(writer, BitConverter.DoubleToUInt64Bits(value), littleEndian);
 }
