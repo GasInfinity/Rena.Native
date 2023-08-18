@@ -14,12 +14,12 @@
     <Description>Modern .NET unsafe utilities, extensions and unmanaged types for interop and fast code execution.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>logo-simple.png</PackageIcon>
+    <PackageIcon>logo-native.png</PackageIcon>
     <RepositoryUrl>https://github.com/GasInfinity/Rena.Native</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup Label="Extra files">
     <None Include="../README.md" Pack="true" PackagePath="/" />
-    <None Include="../assets/logo-simple.png" Pack="true" PackagePath="/" />
+    <None Include="../assets/logo-native.png" Pack="true" PackagePath="/" />
   </ItemGroup>
 </Project>
