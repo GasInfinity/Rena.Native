@@ -12,26 +12,26 @@ public sealed class PooledArrayBufferWriter<T> : IBufferWriter<T>, IDisposable
     private T[] buffer = Array.Empty<T>();
     private int index;
 
-    public Memory<T> WrittenMemory
-        => buffer.AsMemory()[..index];
+    public ReadOnlyMemory<T> WrittenMemory
+        => this.buffer.AsMemory()[..index];
 
-    public Span<T> WrittenSpan
-        => buffer.AsSpan()[..index];
+    public ReadOnlySpan<T> WrittenSpan
+        => this.buffer.AsSpan()[..index];
 
     public int Capacity
-        => buffer.Length;
+        => this.buffer.Length;
 
     public int WrittenCount
-        => index;
+        => this.index;
 
     public int FreeCapacity
-        => buffer.Length - index;
+        => this.buffer.Length - index;
     
     private Span<T> UnwrittenSpan
-        => buffer.AsSpan()[index..];
+        => this.buffer.AsSpan()[index..];
 
     private Memory<T> UnwrittenMemory
-        => buffer.AsMemory()[index..];
+        => this.buffer.AsMemory()[index..];
 
     public PooledArrayBufferWriter(ArrayPool<T> pool)
         => this.pool = pool;
@@ -96,7 +96,7 @@ public sealed class PooledArrayBufferWriter<T> : IBufferWriter<T>, IDisposable
             return;
 
         T[] lastBuffer = this.buffer;
-        int newSize = checked(int.Max(int.Max(lastBuffer.Length, DefaultInitialSize), sizeHint) * 2);
+        int newSize = checked(int.Max(int.Max(lastBuffer.Length, DefaultInitialSize), sizeHint) * 2); // TODO: Check it ourselves
         T[] newBuffer = this.pool.Rent(newSize);
         
         lastBuffer.CopyTo(newBuffer.AsSpan());

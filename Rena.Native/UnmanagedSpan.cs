@@ -10,14 +10,14 @@ public unsafe readonly struct UnmanagedSpan<T> : ISpanFormattable
     public readonly nuint Length;
 
     public bool IsEmpty
-        => Pointer == null | Length == 0;
+        => Pointer == null || Length == 0;
 
     public ref T this[nuint index]
         => ref Pointer[index];
 
-    public UnmanagedSpan(T* ptr, nuint length)
+    public UnmanagedSpan(T* pointer, nuint length)
     {
-        Pointer = ptr;
+        Pointer = pointer;
         Length = length;
     }
 
@@ -90,52 +90,60 @@ public unsafe readonly struct UnmanagedSpan<T> : ISpanFormattable
         private nuint remaining;
 
         public readonly ref T Current
-            => ref current[0];
+            => ref this.current[0];
 
         public ElementEnumerator(UnmanagedSpan<T> span)
         {
-            current = span.Pointer;
-            remaining = span.Length;
+            this.current = span.Pointer;
+            this.remaining = span.Length;
         }
 
         public bool MoveNext()
         {
-            if (remaining-- == 0)
+            if (this.remaining-- == 0)
                 return false;
 
-            ++current;
+            ++this.current;
             return true;
         }
     }
 
-    public struct SpanEnumerator // TODO: This can be rewritten without using isFinalBlock
+    public struct SpanEnumerator
     {
         private T* current;
         private nuint remaining;
-        private bool isFinalBlock;
 
-        public readonly Span<T> Current
-            => MemoryMarshal.CreateSpan(ref current[0], (int)nuint.Min(remaining, int.MaxValue));
+        public Span<T> Current
+        {
+            get
+            {
+                if(this.remaining <= int.MaxValue)
+                {
+                    Span<T> span = MemoryMarshal.CreateSpan(ref this.current[0], (int)this.remaining);
+                    this.remaining = 0;
+                    return span;
+                }
+
+                return MemoryMarshal.CreateSpan(ref this.current[0], int.MaxValue);
+            }
+        }
 
         public SpanEnumerator(UnmanagedSpan<T> span)
         {
-            current = span.Pointer;
-            remaining = span.Length;
+            this.current = span.Pointer;
+            this.remaining = span.Length;
         }
 
         public bool MoveNext()
         {
-            if (isFinalBlock)
+            if (this.remaining == 0)
                 return false;
 
-            if (remaining <= int.MaxValue)
-            {
-                isFinalBlock = true;
+            if (this.remaining <= int.MaxValue)
                 return true;
-            }
 
-            remaining -= int.MaxValue;
-            current += int.MaxValue;
+            this.remaining -= int.MaxValue;
+            this.current += int.MaxValue;
             return true;
         }
 

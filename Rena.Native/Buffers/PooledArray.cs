@@ -10,8 +10,8 @@ namespace Rena.Native.Buffers;
 /// <typeparam name="T">The type of elements in the array.</typeparam>
 public struct PooledArray<T> : IDisposable
 {
-    public readonly ArrayPool<T> Pool;
-    public readonly T[] Array;
+    public ArrayPool<T> Pool { get; }
+    public T[] Array { get; }
 
     /// <summary>
     /// Gets a value indicating whether the <see cref="PooledArray{T}"/> instance is default(<see cref="PooledArray{T}"/>)
