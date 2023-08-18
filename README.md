@@ -6,7 +6,7 @@
 <h1 align="center"> Rena.Native</h1>
 
 <p align="center">
-    <img alt="Dynamic XML Badge" src="https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fraw.githubusercontent.com%2FGasInfinity%2FRena.Native%2Fmain%2FRena.Native%2FRena.Native.csproj&query=%2F%2FTargetFramework%5B1%5D&logo=dotnet&logoColor=green&label=%20&color=%23222222">
+    <a href="https://dotnet.microsoft.com/"><img alt="Dynamic XML Badge" src="https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fraw.githubusercontent.com%2FGasInfinity%2FRena.Native%2Fmain%2FRena.Native%2FRena.Native.csproj&query=%2F%2FTargetFramework%5B1%5D&logo=dotnet&logoColor=green&label=%20&color=%23222222"></a>
     <a href="https://www.codefactor.io/repository/github/gasinfinity/rena.native"><img src="https://www.codefactor.io/repository/github/gasinfinity/rena.native/badge" alt="CodeFactor" /></a>
     <a href="https://www.nuget.org/packages/Rena.Native/"><img alt="Nuget" src="https://img.shields.io/nuget/v/Rena.Native"></a>
     <a href="https://mit-license.org/"><img alt="GitHub" src="https://img.shields.io/github/license/GasInfinity/Rena.Native"></a>
