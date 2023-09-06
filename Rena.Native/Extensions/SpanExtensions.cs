@@ -10,28 +10,28 @@ public static class SpanExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Span<T> SliceUnsafe<T>(this Span<T> span, int offset, int length)
     {
-        Debug.Assert(offset >= 0 && offset < span.Length && length <= span.Length - offset, $"The provided {nameof(offset)} and {nameof(length)} must be within the bounds of the {nameof(Span<T>)}!");
+        Debug.Assert((uint)offset <= (uint)span.Length && length <= (span.Length - offset), $"The provided {nameof(offset)} and {nameof(length)} must be within the bounds of the {nameof(Span<T>)}!");
         return MemoryMarshal.CreateSpan(ref Unsafe.Add(ref MemoryMarshal.GetReference(span), offset), length);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ReadOnlySpan<T> SliceUnsafe<T>(this ReadOnlySpan<T> span, int offset, int length)
     {
-        Debug.Assert(offset >= 0 && offset < span.Length && length <= span.Length - offset, $"The provided {nameof(offset)} and {nameof(length)} must be within the bounds of the {nameof(ReadOnlySpan<T>)}!");
+        Debug.Assert((uint)offset <= (uint)span.Length && length <= (span.Length - offset), $"The provided {nameof(offset)} and {nameof(length)} must be within the bounds of the {nameof(ReadOnlySpan<T>)}!");
         return MemoryMarshal.CreateReadOnlySpan(ref Unsafe.Add(ref MemoryMarshal.GetReference(span), offset), length);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Span<T> SliceUnsafe<T>(this Span<T> span, int offset)
     {
-        Debug.Assert(offset >= 0 && offset < span.Length, $"The provided {nameof(offset)} must be within the bounds of the {nameof(Span<T>)}!");
+        Debug.Assert((uint)offset <= (uint)span.Length, $"The provided {nameof(offset)} must be within the bounds of the {nameof(Span<T>)}!");
         return MemoryMarshal.CreateSpan(ref Unsafe.Add(ref MemoryMarshal.GetReference(span), offset), span.Length - offset);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ReadOnlySpan<T> SliceUnsafe<T>(this ReadOnlySpan<T> span, int offset)
     {
-        Debug.Assert(offset >= 0 && offset < span.Length, $"The provided {nameof(offset)} must be within the bounds of the {nameof(ReadOnlySpan<T>)}!");
+        Debug.Assert((uint)offset <= (uint)span.Length, $"The provided {nameof(offset)} must be within the bounds of the {nameof(ReadOnlySpan<T>)}!");
         return MemoryMarshal.CreateReadOnlySpan(ref Unsafe.Add(ref MemoryMarshal.GetReference(span), offset), span.Length - offset);
     }
 
